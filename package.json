@@ -1,0 +1,32 @@
+{
+  "name": "peloton-planner",
+  "version": "1.0.0",
+  "description": "Log and graph workouts and nutrition from Peloton",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./index.js --exec babel-node -e js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsheridanwells/peloton-planner.git"
+  },
+  "author": "@jsheridanwells",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsheridanwells/peloton-planner/issues"
+  },
+  "homepage": "https://github.com/jsheridanwells/peloton-planner#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "googleapis": "^59.0.0",
+    "mongoose": "^5.10.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
