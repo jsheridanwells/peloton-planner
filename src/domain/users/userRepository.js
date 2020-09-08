@@ -1,4 +1,4 @@
-import { UserModel } from './UserModel';
+import { UserModel } from '../../models/UserModel';
 
 async function get(userId) {
     return UserModel.findOne({ _id: userId });
