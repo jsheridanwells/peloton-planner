@@ -21,6 +21,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // middlewares
 app.use(express.static(path.join(__dirname, '/client')));
+
+// replace req.user with null or user object from latest jwt in each request
 app.use((req, res, next) => {
     req.user = null;
     if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {

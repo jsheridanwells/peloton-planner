@@ -11,6 +11,7 @@ const UserSchema = mongoose.Schema({
     pelotonPasswordHash: { type: String },
     dateCreated: { type: Date, default: Date.now },
     active: { type: Boolean, default: true },
+    profile: { type: Object },
 });
 
 const UserModel = mongoose.model('User', UserSchema);

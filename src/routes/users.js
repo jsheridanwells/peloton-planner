@@ -1,10 +1,12 @@
 import express from 'express';
+import api from './api';
 
-const routes = () => {
+const userRoutes = () => {
     const router = express.Router();
-    router.use('/', (req, res, next) => {
-        next();
-    }, requireUser);
+
+    router.use('/', (req, res, next) => next(), requireUser);
+    router.use('/api', api());
+
     return router;
 };
 
@@ -17,4 +19,4 @@ function requireUser(req, res, next) {
     }
 }
 
-export default routes;
+export default userRoutes;

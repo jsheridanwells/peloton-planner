@@ -2,11 +2,11 @@ import express from 'express';
 import { tokenSignIn } from './auth';
 import userRoutes from './users';
 
-function routerIndex() {
+const routerIndex = () => {
     const router = express.Router();
     router.use('/auth/tokensignin', tokenSignIn());
     router.use('/users', userRoutes());
-    return router;
-}
+    return router
+};
 
-module.exports = routerIndex;
+export default routerIndex;
