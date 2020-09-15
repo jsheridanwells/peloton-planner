@@ -1,4 +1,5 @@
 import {getWorkoutDetails, listWorkouts, loginPeloton} from '../http/onePeloton';
+import WorkoutModel from '../models/WorkoutModel';
 
 export async function sendPelotonLogin(loginObj) {
     const pelotonResponse = await loginPeloton(loginObj);
@@ -8,7 +9,6 @@ export async function sendPelotonLogin(loginObj) {
 export async function getPelotonWorkouts(pelotonUserId, pelotonSessionId) {
     const workoutsResponse = await listWorkouts(pelotonUserId, pelotonSessionId);
     return createWorkoutsResult(workoutsResponse);
-
 }
 
 export async function loadWorkoutDetails(workouts, sessionId, userId) {
@@ -16,8 +16,10 @@ export async function loadWorkoutDetails(workouts, sessionId, userId) {
         workouts.map(async wo => {
             return await getWorkoutDetails(wo.workoutId, sessionId);
         })
-    ).then(results => console.log('loadWorkoutDetails promise all result, :: ', results));
-    // TODO : handle saving data to database
+    ).then(results => {
+        const workoutsMap = results.map(result => mapWorkoutDetails(result, userId));
+        WorkoutModel.create(workoutsMap);
+    }).catch(err => console.log('Error: ', err));
 }
 
 function createPelotonLoginResult(pelotonResponse) {
@@ -42,5 +44,16 @@ function createWorkoutsResult(workoutResponse) {
             toSave: true,
         }
     });
+}
+
+// TODO : figure out how to parse date in DB
+function mapWorkoutDetails(workoutData, uid) {
+    return {
+        userId: uid,
+        createdAt: new Date(parseInt(workoutData.created_at)),
+        workoutType: workoutData.fitness_discipline,
+        totalWork: workoutData.total_work,
+        totalTime: workoutData.total_time,
+    }
 }
 

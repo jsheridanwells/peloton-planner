@@ -16,7 +16,7 @@ const workoutRoutes = () => {
             res.json(data);
         })
         .post('/new', async (req, res) => {
-            const workouts = req.body.workouts;
+            const workouts = req.body.workouts.filter(wo => wo.toSave);
             const sessionId = req.query.peloton_session_id;
             const userId = req.user._userId;
             await loadWorkoutDetails(workouts, sessionId, userId)
