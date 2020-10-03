@@ -11,8 +11,8 @@ export function tokenSignIn() {
             audience: oAuthClient._clientId
         })
             .then(ticket => findOrCreateNewUser(ticket.getPayload()))
-            .then(user => {
-                const token = createToken(user);
+            .then(result => {
+                const token = createToken(result.user);
                 res.send(token);
             })
             .catch(err => console.error(err));

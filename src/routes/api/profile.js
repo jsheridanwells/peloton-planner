@@ -1,12 +1,17 @@
 import express from 'express';
 import { requestHasRequiredFields } from '../../util/apiUtilities';
 import { sendPelotonLogin } from '../../controllers/pelotonController';
-import {removeUser, requestProfileDelete} from '../../controllers/usersController';
+import {getUserProfile, removeUser, requestProfileDelete} from '../../controllers/usersController';
 
 const profileRoutes = () => {
     const router = express.Router();
 
     router
+        .get('/:uid', async (req, res) => {
+            const uid = req.params.uid;
+            const profileResult = await getUserProfile(uid);
+            res.json(profileResult);
+        })
         .post('/pelotonLogin', async (req, res) => {
             // request must have onepeloton login and password
             if (!requestHasRequiredFields(req.body, ['username_or_email', 'password'])) {
