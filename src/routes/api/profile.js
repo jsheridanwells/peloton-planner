@@ -1,5 +1,5 @@
 import express from 'express';
-import {getUserProfile, removeUser, requestProfileDelete} from '../../controllers/usersController';
+import { getUserProfile, removeUser, requestProfileDelete } from '../../controllers/usersController';
 
 const profileRoutes = () => {
     const router = express.Router();

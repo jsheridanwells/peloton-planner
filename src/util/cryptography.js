@@ -4,8 +4,6 @@ import dayjs from 'dayjs';
 
 dotenv.config();
 
-const algorithm = 'aes-256-cbc';
-
 export function createDeleteRequest(uid) {
     const key = crypto.randomBytes(16).toString('base64');
     const keyHash = hashKey(key);
