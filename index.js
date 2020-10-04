@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import appConfig from './src/config/appConfig';
 import routerIndex from './src/routes';
-import {verifyToken} from './src/util/tokens';
+import {verifyToken} from './src/util/jwt';
 
 mongoose.connect(appConfig.mongoDsn, {
     useNewUrlParser: true,

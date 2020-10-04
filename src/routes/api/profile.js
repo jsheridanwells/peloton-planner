@@ -1,6 +1,4 @@
 import express from 'express';
-import { requestHasRequiredFields } from '../../util/apiUtilities';
-import { sendPelotonLogin } from '../../controllers/pelotonController';
 import {getUserProfile, removeUser, requestProfileDelete} from '../../controllers/usersController';
 
 const profileRoutes = () => {
@@ -11,16 +9,6 @@ const profileRoutes = () => {
             const uid = req.params.uid;
             const profileResult = await getUserProfile(uid);
             res.json(profileResult);
-        })
-        .post('/pelotonLogin', async (req, res) => {
-            // request must have onepeloton login and password
-            if (!requestHasRequiredFields(req.body, ['username_or_email', 'password'])) {
-                res.status(422).send('request body is missing onepeloton username/email or password');
-            }
-
-            // get session from peloton
-            const pelotonResult = await sendPelotonLogin(req.body);
-            res.json(pelotonResult);
         })
         .post('/deleteRequest/:uid', (req, res) => {
             const uid = req.params.uid;

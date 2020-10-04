@@ -9,10 +9,6 @@ const UserSchema = mongoose.Schema({
     picture: { type: String },
     googleSubId: { type: String },
     dateCreated: { type: Date, default: Date.now },
-    // profile: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Profile'
-    // }
 });
 
 const UserModel = mongoose.model('User', UserSchema);

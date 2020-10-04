@@ -4,12 +4,9 @@ import workouts from './workouts';
 
 const apiIndex = () => {
     const router = express.Router();
-
-    // TODO : register all api routes here
     router.use('/', (req, res, next) => next(), requireUser);
     router.use('/profile', profile());
     router.use('/workouts', workouts());
-
     return router;
 };
 
