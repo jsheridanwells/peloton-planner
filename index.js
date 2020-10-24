@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // middlewares
-app.use(express.static(path.join(__dirname, '/client')));
+app.use(express.static(path.join(__dirname, '/temp_client')));
 
 // replace req.user with null or user object from latest jwt in each request
 app.use((req, res, next) => {
