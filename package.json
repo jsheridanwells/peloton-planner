@@ -2,9 +2,9 @@
   "name": "peloton-planner",
   "version": "1.0.0",
   "description": "Log and graph workouts and nutrition from Peloton",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon ./index.js --exec babel-node -e js",
+    "start": "nodemon ./bin/www --exec babel-node -e js",
     "test": "test"
   },
   "repository": {

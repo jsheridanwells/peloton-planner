@@ -20,7 +20,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// middlewares
+// load client
 app.use(express.static(path.join(__dirname, '/temp_client')));
 
 // replace req.user with null or user object from latest jwt in each request
@@ -36,5 +36,22 @@ app.use((req, res, next) => {
 });
 app.use('/', routerIndex());
 
+// catch 404s
+app.use((req, res, next) => {
+    const err = new Error('Not found');
+    err.status = 404;
+    next(err);
+});
+
+// handle errors
+app.use((err, req, res, next) => {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');
+});
+
 // express is ready :)
-app.listen(appConfig.port, () => console.log(`app is listening on port ${ appConfig.port }`));
+// app.listen(appConfig.port, () => console.log(`app is listening on port ${ appConfig.port }`));
+
+export default app;
