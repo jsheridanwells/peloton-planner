@@ -4,7 +4,7 @@
   "description": "Log and graph workouts and nutrition from Peloton",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node -e js",
+    "start": "nodemon ./bin/www --exec babel-node -e js --ignore ./client",
     "test": "test"
   },
   "repository": {
@@ -30,6 +30,8 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-0": "^6.24.1"
+    "babel-preset-stage-0": "^6.24.1",
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.1"
   }
 }

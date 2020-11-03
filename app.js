@@ -1,10 +1,15 @@
 import path from 'path';
+import dotenv from 'dotenv';
 import express from 'express';
+import liveReload from 'livereload';
+import connectLivereload from 'connect-livereload';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import appConfig from './src/config/appConfig';
 import routerIndex from './src/routes';
 import {verifyToken} from './src/util/jwt';
+
+let liveReloadServer;
 
 mongoose.connect(appConfig.mongoDsn, {
     useNewUrlParser: true,
@@ -16,12 +21,23 @@ mongoose.connect(appConfig.mongoDsn, {
 // express init
 const app = express();
 
+if (process.env.NODE_ENV !== 'production') {
+    liveReloadServer = liveReload.createServer();
+    liveReloadServer.watch(path.join(__dirname, 'client/dist/peloton-planner'));
+    app.use(connectLivereload());
+    liveReloadServer.server.once('connection', () => {
+        setTimeout(() => liveReloadServer.refresh('/'), 100);
+    });
+}
+
+
 // body-parser config
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // load client
-app.use(express.static(path.join(__dirname, '/temp_client')));
+// app.use(express.static(path.join(__dirname, '/temp_client'))); // temp harness
+app.use(express.static(path.join(__dirname, 'client/dist/peloton-planner')));
 
 // replace req.user with null or user object from latest jwt in each request
 app.use((req, res, next) => {
@@ -50,8 +66,5 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error');
 });
-
-// express is ready :)
-// app.listen(appConfig.port, () => console.log(`app is listening on port ${ appConfig.port }`));
 
 export default app;
