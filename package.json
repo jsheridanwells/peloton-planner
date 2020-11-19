@@ -4,7 +4,7 @@
   "description": "Log and graph workouts and nutrition from Peloton",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node -e js --ignore ./client",
+    "start": "nodemon bin/www.js --exec babel-node -e js --ignore ./client",
     "test": "test"
   },
   "repository": {
